@@ -17,11 +17,7 @@ func NewArgParser(args []string) *ArgParser {
 	return parser
 }
 
-func (parser ArgParser) Get() string {
-	return parser.args[0]
-}
-
-func (parser ArgParser) parse() {
+func (parser *ArgParser) parse() {
 	// Check for the correct number of arguments
 	if len(parser.args) != 1 {
 		fmt.Println("Usage: ./main <arg>")
@@ -32,4 +28,12 @@ func (parser ArgParser) parse() {
 	if strings.HasSuffix(parser.args[0], ".json") {
 		parser.isJson = true
 	}
+}
+
+func (parser ArgParser) Get() string {
+	return parser.args[0]
+}
+
+func (parser ArgParser) IsJSON() bool {
+	return parser.isJson
 }
