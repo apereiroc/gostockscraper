@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"gostockscrape/argparser"
+	"os"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	parser := argparser.NewArgParser(os.Args[1:])
+	fmt.Printf("Parsed args: %s\n", parser.Get())
 }
