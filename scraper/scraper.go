@@ -9,13 +9,15 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-type Scraper struct{}
-
-func New() *Scraper {
-	return &Scraper{}
+type Scraper struct {
+	logger *log.Logger
 }
 
-func (scraper Scraper) Scrap(arg string, isJson bool) {
+func New(logger *log.Logger) *Scraper {
+	return &Scraper{logger: logger}
+}
+
+func (scraper *Scraper) Scrap(arg string, isJson bool) {
 	if isJson {
 		scraper.scrapFile(arg)
 	} else {
@@ -23,19 +25,21 @@ func (scraper Scraper) Scrap(arg string, isJson bool) {
 	}
 }
 
-func (scraper Scraper) scrapFile(file string) {
+func (scraper *Scraper) scrapFile(file string) {
 }
 
-func (scraper Scraper) scrapSingleCompany(company string) {
+func (sc *Scraper) scrapSingleCompany(company string) {
 	//
 	url := "https://finance.yahoo.com/quote/" + company
 
-	log.Println("Requested to get info from URL: ", url)
+	sc.logger.Println("Requested to get info from URL:", url)
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	}
+
+	sc.logger.Println("Get result:", res)
 
 	// Load the HTML document
 	doc, err := goquery.NewDocumentFromReader(res.Body)
@@ -44,6 +48,5 @@ func (scraper Scraper) scrapSingleCompany(company string) {
 		os.Exit(1)
 	}
 
-	fmt.Println("Result:", res)
-	fmt.Println("Doc:", doc)
+	sc.logger.Println("Goquery result:", doc)
 }

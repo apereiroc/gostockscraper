@@ -14,10 +14,10 @@ func main() {
 
 	logger := log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime)
 
-	logger.Println("Arg passed: ", arg)
-	logger.Println("Requested JSON: ", isJson)
+	logger.Println("Arg passed:", arg)
+	logger.Println("Requested JSON:", isJson)
 
-	scraper := scraper.New()
+	scraper := scraper.New(logger)
 
 	scraper.Scrap(arg, isJson)
 }
