@@ -17,7 +17,7 @@ func main() {
 	logger.Println("Arg passed:", arg)
 	logger.Println("Requested JSON:", isJson)
 
-	scraper := scraper.New(logger)
+	scraper := scraper.New()
 
 	scraper.Scrap(arg, isJson)
 }
