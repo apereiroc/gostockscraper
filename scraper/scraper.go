@@ -2,6 +2,7 @@ package scraper
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
@@ -10,7 +11,7 @@ import (
 
 type Scraper struct{}
 
-func NewScraper() *Scraper {
+func New() *Scraper {
 	return &Scraper{}
 }
 
@@ -28,6 +29,8 @@ func (scraper Scraper) scrapFile(file string) {
 func (scraper Scraper) scrapSingleCompany(company string) {
 	//
 	url := "https://finance.yahoo.com/quote/" + company
+
+	log.Println("Requested to get info from URL: ", url)
 	res, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Error:", err)
