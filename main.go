@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"gostockscrape/argparser"
 	"gostockscrape/scraper"
+	"log"
 	"os"
 )
 
@@ -12,10 +12,12 @@ func main() {
 	arg := parser.Get()
 	isJson := parser.IsJSON()
 
-	fmt.Printf("Parsed args: %s\n", parser.Get())
-	fmt.Printf("Is JSON? %t\n", parser.IsJSON())
+	logger := log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime)
 
-	scraper := scraper.NewScraper()
+	logger.Println("Arg passed: ", arg)
+	logger.Println("Requested JSON: ", isJson)
+
+	scraper := scraper.New()
 
 	scraper.Scrap(arg, isJson)
 }
