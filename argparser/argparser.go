@@ -11,7 +11,7 @@ type ArgParser struct {
 	isJson bool
 }
 
-func NewArgParser(args []string) *ArgParser {
+func New(args []string) *ArgParser {
 	parser := &ArgParser{args: args, isJson: false}
 	parser.parse()
 	return parser

@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	parser := argparser.NewArgParser(os.Args[1:])
+	parser := argparser.New(os.Args[1:])
 	arg := parser.Get()
 	isJson := parser.IsJSON()
 
