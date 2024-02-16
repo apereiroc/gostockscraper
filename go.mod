@@ -1,4 +1,4 @@
-module gostockscrape
+module gostockscraper
 
 go 1.21.6
 

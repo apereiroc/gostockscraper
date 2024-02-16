@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gostockscrape/argparser"
-	"gostockscrape/scraper"
+	"gostockscraper/argparser"
+	"gostockscraper/scraper"
 	"log"
 	"os"
 )
