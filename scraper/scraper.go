@@ -52,8 +52,8 @@ func (sc *Scraper) scrapSingleCompany(company string) {
 	companyName := getCompanyName(doc)
 
 	// Get company data of interest
-	currentValue := getRegularMarketPrice(doc)
-	currentChange := getRegularMarketChange(doc)
+	currentValue := getRegularMarketPrice(company, doc)
+	currentChange := getRegularMarketChange(company, doc)
 
 	fmt.Println("Name:", companyName)
 	fmt.Printf("Current value: %f (%f)\n", currentValue, currentChange)

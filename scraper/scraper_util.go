@@ -12,13 +12,17 @@ func getCompanyName(doc *goquery.Document) string {
 	return doc.Find("#quote-header-info").Find("h1").Text()
 }
 
-func getCompanyDataStr(str string, doc *goquery.Document) string {
-	findString := fmt.Sprintf("fin-streamer[data-field=%s]", str)
+func getMarketOpen(doc *goquery.Document) string {
+	return doc.Find("#quote-market-notice").Text()
+}
+
+func getCompanyDataStr(str, companySymbol string, doc *goquery.Document) string {
+	findString := fmt.Sprintf("fin-streamer[data-field=%s][data-symbol=%s]", str, companySymbol)
 	return doc.Find(findString).AttrOr("value", "")
 }
 
-func getCompanyDataFloat(str string, doc *goquery.Document) float32 {
-	valueStr := getCompanyDataStr(str, doc)
+func getCompanyDataFloat(str, companySymbol string, doc *goquery.Document) float32 {
+	valueStr := getCompanyDataStr(str, companySymbol, doc)
 
 	// Cast to float
 	value, err := strconv.ParseFloat(valueStr, 32)
@@ -29,10 +33,10 @@ func getCompanyDataFloat(str string, doc *goquery.Document) float32 {
 	return float32(value)
 }
 
-func getRegularMarketPrice(doc *goquery.Document) float32 {
-	return getCompanyDataFloat("regularMarketPrice", doc)
+func getRegularMarketPrice(companySymbol string, doc *goquery.Document) float32 {
+	return getCompanyDataFloat("regularMarketPrice", companySymbol, doc)
 }
 
-func getRegularMarketChange(doc *goquery.Document) float32 {
-	return getCompanyDataFloat("regularMarketChange", doc)
+func getRegularMarketChange(companySymbol string, doc *goquery.Document) float32 {
+	return getCompanyDataFloat("regularMarketChange", companySymbol, doc)
 }
