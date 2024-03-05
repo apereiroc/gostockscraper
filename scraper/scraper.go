@@ -27,7 +27,7 @@ func (scraper *Scraper) scrapFile(file string) {
 }
 
 func (sc *Scraper) scrapSingleCompany(company string) {
-	url := "https://finance.yahoo.com/quote/" + company
+	url := getUrl(company)
 
 	log.Println("Requested to get info from URL:", url)
 

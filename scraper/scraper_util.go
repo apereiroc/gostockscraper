@@ -8,6 +8,11 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// Everything is based on yahoo finances
+func getUrl(company string) string {
+	return "https://finance.yahoo.com/quote/" + company
+}
+
 func getCompanyName(doc *goquery.Document) string {
 	return doc.Find("#quote-header-info").Find("h1").Text()
 }
