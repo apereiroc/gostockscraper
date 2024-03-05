@@ -1,23 +1,25 @@
 package main
 
 import (
-	"gostockscraper/argparser"
+	"flag"
 	"gostockscraper/scraper"
-	"log"
-	"os"
 )
 
 func main() {
-	parser := argparser.New(os.Args[1:])
-	arg := parser.Get()
-	isJson := parser.IsJSON()
-
-	logger := log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime)
-
-	logger.Println("Arg passed:", arg)
-	logger.Println("Requested JSON:", isJson)
+	var company string
+	var file string
+	flag.StringVar(&company, "c", "", "Company symbol to be sent to the scraper")
+	flag.StringVar(&file, "f", "", "File with company symbols to be sent to the scraper")
+	flag.Parse()
 
 	scraper := scraper.New()
 
-	scraper.Scrap(arg, isJson)
+	// TODO
+	// Improve this provisional splitting
+	if len(company) > 0 {
+		scraper.Scrap(company, false)
+	}
+	if len(file) > 0 {
+		scraper.Scrap(file, true)
+	}
 }
