@@ -1,6 +1,6 @@
 # Stock scraper
 
-Usage 1
+## Use by company symbol in yahoo finance
 ```bash
 go run main.go -c AMZN
 ```
@@ -10,7 +10,7 @@ or
 go run main.go -c {AMZN,GOOG,ORCL}
 ```
 
-Usage 3
+## Use by file with company symbols
 ```bash
 go run main.go -f file.txt
 ```
