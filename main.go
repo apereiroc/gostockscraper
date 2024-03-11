@@ -15,7 +15,6 @@ func main() {
 	rest := flag.Args()
 
 	companies := []string{company}
-	companies = append(companies, company)
 	companies = append(companies, rest...)
 
 	// fmt.Printf("Company: %s\n", company)
