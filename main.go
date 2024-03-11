@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"gostockscraper/scraper"
 )
 
@@ -19,9 +18,9 @@ func main() {
 	companies = append(companies, company)
 	companies = append(companies, rest...)
 
-	fmt.Printf("Company: %s\n", company)
-	fmt.Printf("File: %s\n", file)
-	fmt.Printf("Tail: %s\n", flag.Args())
+	// fmt.Printf("Company: %s\n", company)
+	// fmt.Printf("File: %s\n", file)
+	// fmt.Printf("Tail: %s\n", flag.Args())
 
 	scraper := scraper.New()
 
