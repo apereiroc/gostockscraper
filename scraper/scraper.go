@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -32,28 +31,27 @@ func (sc *Scraper) scrapSingleCompany(company string) {
 	log.Println("Requested to get info from URL:", url)
 
 	res, err := http.Get(url)
-	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
-	}
+	handleErr(err)
 	defer res.Body.Close()
+
 	if res.StatusCode != 200 {
 		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
 	}
 
 	// Load the HTML document
 	doc, err := goquery.NewDocumentFromReader(res.Body)
-	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
-	}
+	handleErr(err)
 
 	// Get company name
-	companyName := getCompanyName(doc)
+	companyName, err := getCompanyName(doc)
+	handleErr(err)
 
 	// Get company data of interest
-	currentValue := getRegularMarketPrice(company, doc)
-	currentChange := getRegularMarketChange(company, doc)
+	currentValue, err := getRegularMarketPrice(company, doc)
+	handleErr(err)
+
+	currentChange, err := getRegularMarketChange(company, doc)
+	handleErr(err)
 
 	fmt.Println("Name:", companyName)
 	fmt.Printf("Current value: %f (%f)\n", currentValue, currentChange)
