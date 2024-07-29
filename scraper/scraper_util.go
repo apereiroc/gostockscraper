@@ -17,7 +17,7 @@ func getCompanyName(doc *goquery.Document) (string, error) {
 	name := doc.Find("#quote-header-info").Find("h1").Text()
 
 	if len(name) == 0 {
-		return name, errors.New("Company name is empty")
+		return name, errors.New("company name is empty")
 	}
 	return name, nil
 }
@@ -26,7 +26,7 @@ func getMarketOpen(doc *goquery.Document) (string, error) {
 	result := doc.Find("#quote-market-notice").Text()
 
 	if len(result) == 0 {
-		return result, errors.New("Market open is empty")
+		return result, errors.New("market open is empty")
 	}
 	return result, nil
 }
@@ -35,7 +35,7 @@ func getCompanyDataStr(str, companySymbol string, doc *goquery.Document) (string
 	findString := fmt.Sprintf("fin-streamer[data-field=%s][data-symbol=%s]", str, companySymbol)
 	result := doc.Find(findString).AttrOr("value", "")
 	if len(result) == 0 {
-		return result, errors.New("Company data  is empty")
+		return result, errors.New("company data  is empty")
 	}
 	return result, nil
 }
