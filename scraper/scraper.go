@@ -35,7 +35,10 @@ func (sc *Scraper) scrapSingleCompany(company string) {
 	defer res.Body.Close()
 
 	if res.StatusCode != 200 {
-		log.Fatalf("status code error: %d %s\n", res.StatusCode, res.Status)
+		if res.StatusCode == 404 {
+			log.Panicf("url not found. is %s an existing company code?", company)
+		}
+		log.Panicf("status code error: %d %s\n", res.StatusCode, res.Status)
 	}
 
 	// Load the HTML document
@@ -63,5 +66,5 @@ func (sc *Scraper) scrapSingleCompany(company string) {
 	handleErr(err)
 
 	// Print results
-	fmt.Printf("Current value: %s - %s (%s %%)\n", currentValue, currentChange, currentChangePercent)
+	fmt.Printf("Current value: %s  Change: %s (%s %%)\n", currentValue, currentChange, currentChangePercent)
 }
