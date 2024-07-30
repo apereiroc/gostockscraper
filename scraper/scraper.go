@@ -35,24 +35,33 @@ func (sc *Scraper) scrapSingleCompany(company string) {
 	defer res.Body.Close()
 
 	if res.StatusCode != 200 {
-		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+		log.Fatalf("status code error: %d %s\n", res.StatusCode, res.Status)
 	}
 
 	// Load the HTML document
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	handleErr(err)
 
-	// Get company name
-	companyName, err := getCompanyName(doc)
+	// Get company title
+	companyTitle, err := getCompanyTitle(doc)
 	handleErr(err)
+	fmt.Println("Company:", companyTitle)
+
+	// Get market status
+	marketString, err := getMarketOpen(doc)
+	handleErr(err)
+	fmt.Println("Market open:", marketString)
 
 	// Get company data of interest
-	currentValue, err := getRegularMarketPrice(company, doc)
+	currentValue, err := getRegularMarketPrice(doc)
 	handleErr(err)
 
-	currentChange, err := getRegularMarketChange(company, doc)
+	currentChange, err := getRegularMarketChangeAbsolute(doc)
 	handleErr(err)
 
-	fmt.Println("Name:", companyName)
-	fmt.Printf("Current value: %f (%f)\n", currentValue, currentChange)
+	currentChangePercent, err := getRegularMarketChangePercent(doc)
+	handleErr(err)
+
+	// Print results
+	fmt.Printf("Current value: %s - %s (%s %%)\n", currentValue, currentChange, currentChangePercent)
 }
