@@ -51,9 +51,9 @@ func (sc *Scraper) scrapSingleCompany(company string) {
 	fmt.Println("Company:", companyTitle)
 
 	// Get market status
-	marketString, err := getMarketOpen(doc)
+	marketOpen, err := isMarketOpen(doc)
 	handleErr(err)
-	fmt.Println("Market open:", marketString)
+	fmt.Println("Is market open:", marketOpen)
 
 	// Get company data of interest
 	currentValue, err := getRegularMarketPrice(doc)

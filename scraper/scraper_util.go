@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -45,6 +46,14 @@ func getMarketOpen(doc *goquery.Document) (string, error) {
 	identifier := "span.yf-1dnpe7s"
 	errorString := "market open not found"
 	return getStringFromDocument(identifier, errorString, doc)
+}
+
+func isMarketOpen(doc *goquery.Document) (bool, error) {
+	marketString, err := getMarketOpen(doc)
+	if err != nil {
+		return false, err
+	}
+	return strings.Contains(marketString, "Open"), nil
 }
 
 // Generic function to get the company data
